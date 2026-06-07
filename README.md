@@ -93,42 +93,6 @@ To verify that the profiling engine is fully functional across Python, Java, C, 
 
 ---
 
-## 📤 Uploading to Git (GitHub/GitLab)
-
-Follow these steps to initialize Git and upload this project to your repository:
-
-### Step 1: Initialize Git
-In the project root directory (`deep by ds`), initialize a new Git repository:
-```bash
-git init
-```
-
-### Step 2: Add Files to Staging
-Add all project files (the `.gitignore` file will automatically prevent virtual environments and binary files from being staged):
-```bash
-git add .
-```
-
-To verify which files are going to be added, run:
-```bash
-git status
-```
-
-### Step 3: Create Your First Commit
-Commit the staged files with a descriptive message:
-```bash
-git commit -m "Initial commit: DeepTrace Hardware-Aware Profiler web application"
-```
-
-### Step 4: Create a Remote Repository
-1. Go to [GitHub](https://github.com/) (or GitLab) and log in.
-2. Click **New Repository** (or **New**).
-3. Name your repository (e.g., `deeptrace-profiler`).
-4. Keep it public or private as desired, and **do NOT** initialize it with a README, .gitignore, or license (since you already created them locally).
-5. Click **Create repository**.
-
-### Step 5: Link Local Repo to Remote & Push
-Copy the remote repository URL and run the following commands in your terminal:
 
 
 ~Author: Viswa AG Be/CSE
