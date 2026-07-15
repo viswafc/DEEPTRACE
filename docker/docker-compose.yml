@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - deeptrace_jobs:/tmp/deeptrace_jobs
+    environment:
+      - DEEPTRACE_LOG_LEVEL=INFO
+      - DEEPTRACE_MAX_CONCURRENT_JOBS=5
+      - DEEPTRACE_PYTHON_TIMEOUT=30
+      - DEEPTRACE_JAVA_TIMEOUT=60
+    # Add capabilities for strace to work inside the container
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  deeptrace_jobs:

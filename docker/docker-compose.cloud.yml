@@ -1,0 +1,41 @@
+# Cloud-optimized variant
+# No SYS_PTRACE (cloud environments like Fargate/CloudRun don't allow it)
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - deeptrace_jobs:/tmp/deeptrace_jobs
+    environment:
+      - DEEPTRACE_LOG_LEVEL=INFO
+      - DEEPTRACE_MAX_CONCURRENT_JOBS=10
+      - DEEPTRACE_PYTHON_TIMEOUT=30
+      - DEEPTRACE_JAVA_TIMEOUT=60
+      - STRACE_AVAILABLE=false # Disable strace fallback to psutil
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+
+volumes:
+  deeptrace_jobs:
